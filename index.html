@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8-sinf o'quvchilari So'rovnoma</title>
+<style>
+:root{--bg:#0a0f24;--card:#141b3a;--card2:#1b2450;--ink:#eef2ff;--muted:#9aa7d6;--line:#2c3870;--cy:#3de0ff;--or:#ff8a3d;--pk:#ff4d8d;--bad:#ff6b81}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;color:var(--ink);font-family:"Trebuchet MS","Segoe UI",Verdana,sans-serif;font-size:17px;line-height:1.55;
+  background:radial-gradient(1.5px 1.5px at 20px 30px,#fff 50%,transparent 51%),radial-gradient(1px 1px at 90px 120px,#cfe 50%,transparent 51%),radial-gradient(2px 2px at 160px 60px,#fff 50%,transparent 51%),radial-gradient(1px 1px at 230px 170px,#fff 50%,transparent 51%),radial-gradient(900px 500px at 85% -10%,#2a1a5e 0,transparent 70%),radial-gradient(700px 500px at 0% 40%,#0e2a5a 0,transparent 70%),var(--bg);
+  background-size:260px 200px,260px 200px,260px 200px,260px 200px,auto,auto,auto;background-attachment:fixed}
+.wrap{max-width:700px;margin:0 auto;padding:0 18px 70px}
+.top{padding:56px 0 26px}
+.badge{display:inline-flex;gap:8px;align-items:center;background:var(--card2);border:1px solid var(--line);color:var(--cy);padding:6px 14px;border-radius:99px;font-size:14px;font-weight:700}
+h1{font-size:clamp(32px,8vw,54px);line-height:1.08;margin:16px 0 10px;letter-spacing:-.5px;background:linear-gradient(90deg,#fff,var(--cy) 60%,#9d8cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted);margin:0}
+.card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:22px;padding:24px;margin-bottom:18px;position:relative}
+.card::before{content:"";position:absolute;left:0;top:22px;bottom:22px;width:4px;border-radius:0 4px 4px 0;background:linear-gradient(var(--cy),var(--pk))}
+.card.bad{border-color:var(--bad);box-shadow:0 0 0 3px rgba(255,107,129,.18)}
+.q{font-weight:700;font-size:18px;margin:0 0 4px}
+.q i{color:var(--muted);font-weight:400;font-style:normal;font-size:14px}
+.hint{color:var(--muted);font-size:14px;margin:0 0 14px}
+.q+.chips,.q+input,.q+textarea{margin-top:12px}
+.req{color:var(--or)}
+input[type=text],textarea{width:100%;font:inherit;color:var(--ink);background:#0d1330;border:1.5px solid var(--line);border-radius:14px;padding:13px 15px}
+textarea{min-height:110px;resize:vertical}
+input::placeholder,textarea::placeholder{color:#6674a8}
+input:focus,textarea:focus{outline:none;border-color:var(--cy);box-shadow:0 0 0 4px rgba(61,224,255,.16)}
+.cnt{text-align:right;color:var(--muted);font-size:13px;margin-top:4px}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chips label{display:flex;align-items:center;gap:10px;padding:14px 16px;border:1.5px solid var(--line);border-radius:14px;background:#0d1330;cursor:pointer;font-weight:600;transition:transform .15s,border-color .15s,background .15s}
+.chips label:hover{transform:translateY(-2px);border-color:var(--cy)}
+.chips input{position:absolute;opacity:0}
+.chips label::before{content:"";width:20px;height:20px;flex:none;border:2px solid var(--muted);border-radius:50%}
+.chips.ck label::before{border-radius:6px}
+.chips label:has(input:checked){background:linear-gradient(135deg,#0f4e66,#2b2a72);border-color:var(--cy)}
+.chips label:has(input:checked)::before{background:var(--cy);border-color:var(--cy);box-shadow:inset 0 0 0 4px #0d3550}
+.chips label:has(input:focus-visible){outline:3px solid var(--or);outline-offset:2px}
+.er{display:none;color:var(--bad);font-weight:700;font-size:14px;margin-top:8px}
+.bad .er{display:block}
+.btns{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:6px}
+button{font:inherit;font-weight:800;border:0;cursor:pointer}
+.go{background:linear-gradient(90deg,var(--or),var(--pk));color:#fff;padding:15px 34px;border-radius:14px;font-size:18px;box-shadow:0 8px 24px rgba(255,77,141,.35)}
+.go:hover{filter:brightness(1.08)}
+.clr{background:none;color:var(--muted);text-decoration:underline;font-weight:600;padding:8px}
+button:focus-visible{outline:3px solid var(--cy);outline-offset:3px}
+#done{display:none;text-align:center;padding:40px 0}
+#done h2{font-size:30px;margin:10px 0}
+.sum{text-align:left;margin-top:20px}
+.sum .it{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:10px}
+.sum b{display:block;color:var(--cy);font-size:14px}
+.sum span{overflow-wrap:anywhere}
+.prog{position:fixed;left:0;top:0;height:5px;width:0;background:linear-gradient(90deg,var(--cy),var(--pk),var(--or));z-index:20}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:30;width:100%;height:100%}
+#rocket{position:fixed;left:0;top:0;width:58px;height:110px;pointer-events:none;z-index:31;will-change:transform}
+#rocket svg{width:100%;height:100%;overflow:visible}
+#flame{transform-origin:50% 62px;transform-box:fill-box}
+@media (max-width:560px){.card{padding:20px 16px}#rocket{width:44px;height:84px}.chips{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.err-send{display:none;color:var(--bad);font-weight:700;margin:0 0 14px}
+.chips.one{grid-template-columns:1fr}
+.chips label span{overflow-wrap:anywhere}
+
+/* Yuborilgandan keyingi oyna: Google Forms uslubida */
+html:has(body.gf){background:#f0ebf8}
+body.gf{min-height:100vh;background:#f0ebf8;color:#202124;font-family:Roboto,"Segoe UI",Arial,sans-serif}
+body.gf .top,body.gf form,body.gf #rocket,body.gf #fx,body.gf .prog{display:none!important}
+#done{padding:12px 0 0;text-align:left}
+.gcard{text-align:left;background:#fff;border:1px solid #dadce0;border-radius:8px;overflow:hidden;padding:0 0 26px;max-width:640px;margin:0 auto}
+.gcard .bar{height:10px;background:#5b48e0;margin-bottom:22px}
+#done .gcard h2{font-size:clamp(28px,6vw,36px);font-weight:400;margin:0 24px 26px;color:#202124;line-height:1.2}
+.gcard p{margin:0 24px 30px;font-size:16px;color:#202124}
+.gcard a{margin:0 24px;color:#1a56d6;font-size:16px;text-decoration:underline}
+.gcard .note{font-size:13px;color:#b45309;margin-bottom:20px}
+.gcard .res{font-size:18px}.gcard .res b{color:#5b48e0}
+.gcard a.tgbtn{display:inline-block;background:#5b48e0;color:#fff;text-decoration:none;padding:11px 20px;border-radius:6px;margin:0}
+.gcard details{margin:0 24px 26px}.gcard summary{cursor:pointer;color:#5b48e0;font-weight:600}
+.gcard .rv{padding:10px 0;border-top:1px solid #e8eaed;font-size:15px;margin-top:8px}
+.gcard .rv b{margin-right:4px}.gcard .rv.ok b{color:#188038}.gcard .rv.no b{color:#c5221f}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<canvas id="fx"></canvas>
+<div id="rocket" aria-hidden="true">
+<svg viewBox="0 0 58 110">
+  <g id="flame"><path d="M18 62 Q29 118 40 62 Z" fill="#ff8a3d"/><path d="M23 62 Q29 100 35 62 Z" fill="#ffe27a"/></g>
+  <path d="M14 52 L2 74 L16 68 Z" fill="#ff4d8d"/><path d="M44 52 L56 74 L42 68 Z" fill="#ff4d8d"/>
+  <path d="M29 0 C46 14 48 40 44 64 L14 64 C10 40 12 14 29 0 Z" fill="#f4f7ff"/>
+  <path d="M29 0 C37 6 42 14 44 22 L14 22 C16 14 21 6 29 0 Z" fill="#ff4d8d"/>
+  <circle cx="29" cy="38" r="8" fill="#3de0ff" stroke="#1b2450" stroke-width="3"/>
+  <rect x="14" y="58" width="30" height="8" rx="3" fill="#2c3870"/>
+</svg>
+</div>
+
+<main class="wrap">
+  <header class="top">
+    <span class="badge">&lt;/&gt; HTML va CSS testi</span>
+    <h1>8-sinf o'quvchilari So'rovnoma</h1>
+    <p class="sub">Guruh uchun. 16 ta test savoli, har birida bitta to'g'ri javob bor. O'zingiz yeching.</p>
+  </header>
+
+  <form id="form" novalidate>
+    <section class="card" data-f="name" data-t="text" data-min="3">
+      <p class="q">Ism va familiyangiz <span class="req">*</span></p>
+      <input type="text" placeholder="Masalan: Sardorbek Karimov" autocomplete="name">
+      <span class="er">Ismingizni yozing</span>
+    </section>
+
+    <section class="card" data-f="q0" data-t="radio">
+      <p class="q">1) HTML so&#x27;zining kengaytmasi nima? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q0" value="A) Hyper Text Markup Language"> <span>A) Hyper Text Markup Language</span></label>
+        <label><input type="radio" name="q0" value="B) High Text Machine Language"> <span>B) High Text Machine Language</span></label>
+        <label><input type="radio" name="q0" value="C) Hyperlink Text Management Language"> <span>C) Hyperlink Text Management Language</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q1" data-t="radio">
+      <p class="q">2) CSS-da elementning tashqi masofasini (bo&#x27;shlig&#x27;ini) belgilovchi xossa qaysi? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q1" value="A) padding"> <span>A) padding</span></label>
+        <label><input type="radio" name="q1" value="B) margin"> <span>B) margin</span></label>
+        <label><input type="radio" name="q1" value="C) border"> <span>C) border</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q2" data-t="radio">
+      <p class="q">3) Eng katta sarlavha yaratadigan HTML teg qaysi? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q2" value="A) &lt;h6&gt;"> <span>A) &lt;h6&gt;</span></label>
+        <label><input type="radio" name="q2" value="B) &lt;head&gt;"> <span>B) &lt;head&gt;</span></label>
+        <label><input type="radio" name="q2" value="C) &lt;h1&gt;"> <span>C) &lt;h1&gt;</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q3" data-t="radio">
+      <p class="q">4) Havola (link) yaratish uchun qaysi teg ishlatiladi? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q3" value="A) &lt;a&gt;"> <span>A) &lt;a&gt;</span></label>
+        <label><input type="radio" name="q3" value="B) &lt;link&gt;"> <span>B) &lt;link&gt;</span></label>
+        <label><input type="radio" name="q3" value="C) &lt;href&gt;"> <span>C) &lt;href&gt;</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q4" data-t="radio">
+      <p class="q">5) Sahifaga rasm qo&#x27;yish uchun qaysi teg ishlatiladi? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q4" value="A) &lt;image&gt;"> <span>A) &lt;image&gt;</span></label>
+        <label><input type="radio" name="q4" value="B) &lt;img&gt;"> <span>B) &lt;img&gt;</span></label>
+        <label><input type="radio" name="q4" value="C) &lt;pic&gt;"> <span>C) &lt;pic&gt;</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q5" data-t="radio">
+      <p class="q">6) Nuqtali (tartibsiz) ro&#x27;yxat qaysi teg bilan yaratiladi? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q5" value="A) &lt;ol&gt;"> <span>A) &lt;ol&gt;</span></label>
+        <label><input type="radio" name="q5" value="B) &lt;li&gt;"> <span>B) &lt;li&gt;</span></label>
+        <label><input type="radio" name="q5" value="C) &lt;ul&gt;"> <span>C) &lt;ul&gt;</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q6" data-t="radio">
+      <p class="q">7) CSS-da matn rangini o&#x27;zgartiruvchi xossa qaysi? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q6" value="A) font-color"> <span>A) font-color</span></label>
+        <label><input type="radio" name="q6" value="B) color"> <span>B) color</span></label>
+        <label><input type="radio" name="q6" value="C) text-style"> <span>C) text-style</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q7" data-t="radio">
+      <p class="q">8) CSS so&#x27;zi nimaning qisqartmasi? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q7" value="A) Creative Style Sheets"> <span>A) Creative Style Sheets</span></label>
+        <label><input type="radio" name="q7" value="B) Computer Style Sheets"> <span>B) Computer Style Sheets</span></label>
+        <label><input type="radio" name="q7" value="C) Cascading Style Sheets"> <span>C) Cascading Style Sheets</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q8" data-t="radio">
+      <p class="q">9) Element ichidagi kontent bilan chegara orasidagi masofani qaysi xossa belgilaydi? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q8" value="A) padding"> <span>A) padding</span></label>
+        <label><input type="radio" name="q8" value="B) margin"> <span>B) margin</span></label>
+        <label><input type="radio" name="q8" value="C) spacing"> <span>C) spacing</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q9" data-t="radio">
+      <p class="q">10) CSS-da sinf (class) bo&#x27;yicha elementni tanlash uchun qaysi belgi ishlatiladi? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q9" value="A) #"> <span>A) #</span></label>
+        <label><input type="radio" name="q9" value="B) ."> <span>B) .</span></label>
+        <label><input type="radio" name="q9" value="C) *"> <span>C) *</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q10" data-t="radio">
+      <p class="q">11) Orqa fon rangini berish uchun qaysi xossa ishlatiladi? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q10" value="A) bgcolor"> <span>A) bgcolor</span></label>
+        <label><input type="radio" name="q10" value="B) color-back"> <span>B) color-back</span></label>
+        <label><input type="radio" name="q10" value="C) background-color"> <span>C) background-color</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q11" data-t="radio">
+      <p class="q">12) Flexbox&#x27;ni yoqish uchun qaysi yozuv to&#x27;g&#x27;ri? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q11" value="A) position: flex"> <span>A) position: flex</span></label>
+        <label><input type="radio" name="q11" value="B) display: flex"> <span>B) display: flex</span></label>
+        <label><input type="radio" name="q11" value="C) flex: display"> <span>C) flex: display</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q12" data-t="radio">
+      <p class="q">13) Jadvalda bitta qatorni yaratadigan teg qaysi? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q12" value="A) &lt;td&gt;"> <span>A) &lt;td&gt;</span></label>
+        <label><input type="radio" name="q12" value="B) &lt;th&gt;"> <span>B) &lt;th&gt;</span></label>
+        <label><input type="radio" name="q12" value="C) &lt;tr&gt;"> <span>C) &lt;tr&gt;</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q13" data-t="radio">
+      <p class="q">14) Brauzer yorlig&#x27;ida ko&#x27;rinadigan sahifa nomi qaysi teg ichiga yoziladi? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q13" value="A) &lt;title&gt;"> <span>A) &lt;title&gt;</span></label>
+        <label><input type="radio" name="q13" value="B) &lt;header&gt;"> <span>B) &lt;header&gt;</span></label>
+        <label><input type="radio" name="q13" value="C) &lt;name&gt;"> <span>C) &lt;name&gt;</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q14" data-t="radio">
+      <p class="q">15) Matnni qalin qilish uchun qaysi CSS yozuvi to&#x27;g&#x27;ri? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q14" value="A) font-style: bold"> <span>A) font-style: bold</span></label>
+        <label><input type="radio" name="q14" value="B) font-weight: bold"> <span>B) font-weight: bold</span></label>
+        <label><input type="radio" name="q14" value="C) text-bold: yes"> <span>C) text-bold: yes</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <section class="card" data-f="q15" data-t="radio">
+      <p class="q">16) Tashqi CSS faylni HTML sahifaga ulash uchun qaysi teg ishlatiladi? <span class="req">*</span></p>
+      <div class="chips one">
+        <label><input type="radio" name="q15" value="A) &lt;style src=&quot;stil.css&quot;&gt;"> <span>A) &lt;style src=&quot;stil.css&quot;&gt;</span></label>
+        <label><input type="radio" name="q15" value="B) &lt;css href=&quot;stil.css&quot;&gt;"> <span>B) &lt;css href=&quot;stil.css&quot;&gt;</span></label>
+        <label><input type="radio" name="q15" value="C) &lt;link rel=&quot;stylesheet&quot; href=&quot;stil.css&quot;&gt;"> <span>C) &lt;link rel=&quot;stylesheet&quot; href=&quot;stil.css&quot;&gt;</span></label>
+      </div>
+      <span class="er">Javobni tanlang</span>
+    </section>
+
+    <div class="err-send" id="sendErr" role="alert"></div>
+    <div class="btns">
+      <button type="submit" class="go">Yuborish</button>
+      <button type="reset" class="clr" id="clearbtn">Shaklni tozalash</button>
+    </div>
+  </form>
+  <section id="done" aria-live="polite"></section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const form=$("form"),cards=[...document.querySelectorAll("[data-f]")];
+function valueOf(c){
+  const t=c.dataset.t;
+  if(t==="text")return c.querySelector("input,textarea").value.trim();
+  if(t==="radio"){const r=c.querySelector("input:checked");return r?r.value:""}
+  return [...c.querySelectorAll("input:checked")].map(i=>i.value).join(", ");
+}
+function ok(c){const v=valueOf(c);return c.dataset.t==="text"?v.length>=+c.dataset.min:v.length>0}
+function mark(c){const g=ok(c);c.classList.toggle("bad",!g);return g}
+const upd=e=>{const c=e.target.closest("[data-f]");if(!c)return;
+  if(e.target.tagName==="TEXTAREA")c.querySelector(".cnt span").textContent=e.target.value.length;
+  if(c.classList.contains("bad"))mark(c)};
+form.addEventListener("input",upd);form.addEventListener("change",upd);
+$("clearbtn").onclick=()=>setTimeout(()=>{cards.forEach(c=>c.classList.remove("bad"));document.querySelectorAll(".cnt span").forEach(s=>s.textContent=0)},0);
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ANS=["A","B","C","A","B","C","B","C","A","B","C","B","C","A","B","C"],TOTAL=ANS.length;
+let launch=0,sending=false;
+/* Javoblar shu emailga keladi */
+const EMAIL="qurbondurdiyevs45@gmail.com";
+const label=c=>c.querySelector(".q").childNodes[0].textContent.trim();
+const TG="Qurbondurdiyevv_777";
+form.addEventListener("submit",async e=>{
+  e.preventDefault();if(sending)return;
+  let first=null;
+  cards.forEach(c=>{if(!mark(c)&&!first)first=c});
+  if(first){first.scrollIntoView({behavior:"smooth",block:"center"});return}
+  const name=valueOf(cards[0]);let score=0;const det={},rows=[],short=[];
+  cards.slice(1).forEach((c,i)=>{
+    const v=valueOf(c),ok=v[0]===ANS[i];if(ok)score++;
+    det[label(c)]=v+(ok?" (to'g'ri)":" (noto'g'ri, to'g'ri javob: "+ANS[i]+")");
+    rows.push({q:label(c),v,ok,right:c.querySelector('input[value^="'+ANS[i]+')"]').value});short.push((i+1)+"-"+v[0]);
+  });
+  const res=score+"/"+TOTAL+" ("+Math.round(score/TOTAL*100)+"%)";
+  const btn=form.querySelector(".go");sending=true;btn.disabled=true;btn.textContent="Yuborilmoqda...";
+  let sent=false;
+  try{
+    const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),8000);
+    const r=await fetch("https://formsubmit.co/ajax/"+encodeURIComponent(EMAIL),{method:"POST",signal:ctl.signal,headers:{"Content-Type":"application/json",Accept:"application/json"},
+      body:JSON.stringify(Object.assign({_subject:"8-sinf so'rovnoma: "+name+" - "+score+"/"+TOTAL,_captcha:"false",_template:"table",_honey:"","Ism va familiya":name,"Natija":res},det))});
+    clearTimeout(tm);const j=await r.json();sent=String(j.success)==="true";
+  }catch(x){sent=false}
+  sending=false;btn.disabled=false;btn.textContent="Yuborish";
+  const tgMsg="8-sinf so'rovnoma\nIsm: "+name+"\nNatija: "+res+"\nJavoblar: "+short.join(", ");
+  const fallback=sent?"":`<p class="note">Natija ustozga avtomatik yuborilmadi. Pastdagi tugma orqali Telegramda yuboring.</p><p><a class="tgbtn" href="https://t.me/${TG}?text=${encodeURIComponent(tgMsg)}" target="_blank" rel="noopener">Natijani Telegramda yuborish</a></p>`;
+  const review=rows.map((r,i)=>`<div class="rv ${r.ok?"ok":"no"}"><b>${r.ok?"To'g'ri":"Noto'g'ri"}</b> ${esc(r.q)}<br>Sizning javobingiz: ${esc(r.v)}${r.ok?"":"<br>To'g'ri javob: "+esc(r.right)}</div>`).join("");
+  const d=$("done");
+  d.innerHTML=`<div class="gcard"><div class="bar"></div><h2>8-sinf o'quvchilari So'rovnoma</h2><p>Javobingiz yozib olindi.</p><p class="res">Sizning natijangiz: <b>${res}</b></p>${fallback}<details><summary>Javoblarimni ko'rish</summary>${review}</details><a href="#" id="again">Boshqa javob yuborish</a></div>`;
+  form.style.display="none";d.style.display="block";document.body.classList.add("gf");window.scrollTo({top:0});
+  $("again").onclick=ev=>{ev.preventDefault();form.reset();cards.forEach(c=>c.classList.remove("bad"));document.querySelectorAll(".cnt span").forEach(s=>s.textContent=0);form.style.display="";d.style.display="none";document.body.classList.remove("gf");window.scrollTo({top:0})};
+});
+/* Rocket that chases the scroll */
+const rk=$("rocket"),fl=$("flame"),cv=$("fx"),cx=cv.getContext("2d"),prog=$("prog");
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let W,H,dpr=Math.min(devicePixelRatio||1,2);
+function size(){W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0)}
+size();addEventListener("resize",size);
+let lastY=scrollY,speed=0,dir=1,x=W-90,y=H-150,ang=0,t=0,parts=[],lastTime=performance.now();
+addEventListener("scroll",()=>{
+  const dy=scrollY-lastY;lastY=scrollY;
+  if(dy!==0){dir=dy>0?1:-1;speed=Math.min(Math.abs(dy),60)*.6+speed*.4}
+  const max=document.documentElement.scrollHeight-H;prog.style.width=(max>0?scrollY/max*100:0)+"%";
+},{passive:true});
+function loop(now){
+  const dt=Math.min((now-lastTime)/16.7,3);lastTime=now;t+=dt;
+  speed*=Math.pow(.92,dt);
+  const rw=rk.offsetWidth,rh=rk.offsetHeight,moving=speed>1.2;
+  let tx=W-rw-14,ty;
+  if(launch){ty=-rh*2;tx=W/2-rw/2;ang=0}
+  else if(moving&&dir===1){ty=H-rh-20;ang=0}
+  else if(moving&&dir===-1){ty=20;ang=180}
+  else{ty=H-rh-20+Math.sin(t/18)*5;ang=0;tx+=Math.sin(t/25)*6}
+  if(reduce){x=tx;y=ty}else{x+=(tx-x)*.07*dt;y+=(ty-y)*(launch?.03:.09)*dt}
+  rk.style.transform=`translate(${x+(moving?Math.sin(t*1.7)*1.5:0)}px,${y}px) rotate(${ang}deg)`;
+  const f=reduce?.5:(launch?2:.45+Math.min(speed/18,1.5));
+  fl.style.transform=`scaleY(${f*(.9+Math.random()*.2)}) scaleX(${.9+Math.random()*.2})`;
+  cx.clearRect(0,0,W,H);
+  if(!reduce&&(moving||launch||Math.random()<.2)){
+    const up=ang===180?-1:1,n=moving||launch?3:1;
+    for(let i=0;i<n;i++)parts.push({x:x+rw/2+(Math.random()-.5)*12,y:y+(up===1?rh-10:10),vx:(Math.random()-.5)*1.4,vy:up*(1+Math.random()*2),l:1,r:3+Math.random()*5,c:Math.random()<.5?"255,138,61":"255,226,122"});
+  }
+  parts=parts.filter(p=>p.l>0);
+  for(const p of parts){p.x+=p.vx*dt;p.y+=p.vy*dt;p.l-=.03*dt;p.r+=.12*dt;cx.fillStyle=`rgba(${p.c},${Math.max(p.l,0)*.7})`;cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.3);cx.fill()}
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
